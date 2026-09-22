@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Text analysis</title>
+<link rel="stylesheet" href="base.css">
+</head>
+<body>
+<header class="top">
+  <div style="display:flex;align-items:baseline;gap:20px;flex-wrap:wrap">
+    <h1>Six questions about a piece of text, in one trip</h1>
+    <span class="nav"><a href="whiteboard.html">whiteboard</a></span>
+  </div>
+  <p>
+    Paste anything a user might send you. The model reads it once and answers six
+    questions about it at the same time: how they feel, what they want, what
+    language it is in, whether it leaks personal information, whether it is
+    abusive, and how formal it reads.
+  </p>
+</header>
+
+<main>
+  <section class="panel">
+    <label for="text">Text to analyse</label>
+    <textarea id="text" spellcheck="false" style="min-height:100px"></textarea>
+    <div class="controls">
+      <button id="run">Analyse</button>
+      <button id="compare" class="ghost">One question vs six</button>
+      <span class="spacer"></span>
+      <select id="samples" style="width:auto;max-width:360px"></select>
+    </div>
+    <div id="error" class="err"></div>
+  </section>
+
+  <section>
+    <div class="panel">
+      <div class="stats">
+        <div class="stat"><div class="k">round trip</div><div class="v" id="time">&mdash;</div></div>
+        <div class="stat"><div class="k">questions answered</div><div class="v" id="count">&mdash;</div></div>
+        <div class="stat"><div class="k">cost</div><div class="v" id="cost">&mdash;</div></div>
+      </div>
+      <div class="answers" id="answers" style="margin-top:20px"></div>
+    </div>
+  </section>
+
+  <section id="compare-wrap" hidden>
+    <h2>Asking one question against asking six</h2>
+    <div class="panel">
+      <div class="row">
+        <div class="stat"><div class="k">one question</div><div class="v" id="c-one">&mdash;</div></div>
+        <div class="stat"><div class="k">six questions</div><div class="v" id="c-six">&mdash;</div></div>
+        <div class="stat"><div class="k">difference</div><div class="v" id="c-diff">&mdash;</div></div>
+      </div>
+      <p class="hint" style="margin:14px 0 0">
+        The text is read once. Each question is answered off that same reading, side
+        by side, so six answers take roughly as long as one.
+      </p>
+    </div>
+  </section>
+
+  <section>
+    <h2>A batch of lines</h2>
+    <div class="panel">
+      <label for="lines">One piece of text per line</label>
+      <textarea id="lines" class="mono" spellcheck="false" style="min-height:170px"></textarea>
+      <div class="controls">
+        <button id="run-batch">Analyse every line</button>
+        <span class="spacer"></span>
+        <span class="hint" id="batch-stats"></span>
+      </div>
+      <div class="scroll" style="margin-top:14px">
+        <table>
+          <thead>
+            <tr>
+              <th>Text</th><th>Feeling</th><th>What they want</th><th>Language</th>
+              <th>Personal info</th><th>Abusive</th><th class="num">ms</th>
+            </tr>
+          </thead>
+          <tbody id="rows"><tr><td colspan="7" class="hint">Not run yet.</td></tr></tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+</main>
+
+<script src="app.js"></script>
+</body>
+</html>

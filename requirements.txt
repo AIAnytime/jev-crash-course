@@ -1,0 +1,18 @@
+# Everything the ten projects need. One virtual environment covers all of them.
+typesafe-sdk>=0.7
+openai>=1.60
+fastapi>=0.115
+uvicorn[standard]>=0.30
+
+# 06 - Jev in SQL
+duckdb>=1.1
+pyarrow>=17.0
+numpy>=1.26
+
+# 08 - browser testing (also needs: python -m playwright install chromium)
+playwright>=1.47
+
+# 11 - the local model (pulls in torch and transformers, and several GB of weights)
+laya>=0.3.4
+
+# 04 also ships an older Streamlit front end; see its own requirements.txt

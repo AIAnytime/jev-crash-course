@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Rock paper scissors</title>
+<link rel="stylesheet" href="base.css">
+<style>
+  .throws { display: flex; gap: 14px; margin: 18px 0 6px; }
+  .throws button { flex: 1; font-size: 20px; padding: 26px 10px; background: #fff; color: var(--ink); border: 1px solid var(--line); }
+  .throws button:hover:not(:disabled) { border-color: var(--accent); color: var(--accent); }
+  .board { display: flex; align-items: center; justify-content: center; gap: 40px; padding: 26px 0; }
+  .side { text-align: center; min-width: 190px; }
+  .side .who { font-size: 13px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); }
+  .side .played { font-size: 34px; font-weight: 650; letter-spacing: -0.02em; margin-top: 6px; }
+  .versus { font-size: 16px; color: var(--muted); }
+  .outcome { text-align: center; font-size: 22px; font-weight: 650; padding: 10px 0 2px; }
+  .outcome.you { color: var(--good); }
+  .outcome.jev { color: var(--bad); }
+  .outcome.draw { color: var(--muted); }
+  .lock { font-size: 14px; color: var(--muted); text-align: center; }
+  .rounds { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 10px; }
+  .rounds span { font-size: 12px; padding: 3px 7px; border-radius: 5px; background: #f1efe9; }
+  .rounds span.jev { background: #fbeaea; color: var(--bad); }
+  .rounds span.you { background: #e7f6ea; color: var(--good); }
+</style>
+</head>
+<body>
+<header class="top">
+  <div style="display:flex;align-items:baseline;gap:20px;flex-wrap:wrap">
+    <h1>Rock paper scissors against a model that cannot play</h1>
+    <span class="nav"><a href="whiteboard.html">whiteboard</a></span>
+  </div>
+  <p>
+    Jev never picks a move. It answers one question - what will you throw next -
+    and ordinary code plays whatever beats the answer. The prediction is worked out
+    and locked before you throw, and you see it afterwards. Over enough rounds, the
+    only way it can beat you is if you are not as random as you think.
+  </p>
+</header>
+
+<main>
+  <section class="panel">
+    <div class="stats">
+      <div class="stat"><div class="k">rounds</div><div class="v" id="s-rounds">0</div></div>
+      <div class="stat"><div class="k">you</div><div class="v" id="s-you">0</div></div>
+      <div class="stat"><div class="k">Jev</div><div class="v" id="s-jev">0</div></div>
+      <div class="stat"><div class="k">draws</div><div class="v" id="s-draws">0</div></div>
+      <div class="stat"><div class="k">it guessed right</div><div class="v" id="s-acc">&mdash;</div></div>
+    </div>
+
+    <div class="board">
+      <div class="side"><div class="who">you</div><div class="played" id="you-played">&mdash;</div></div>
+      <div class="versus">against</div>
+      <div class="side"><div class="who">Jev</div><div class="played" id="jev-played">&mdash;</div></div>
+    </div>
+    <div class="outcome" id="outcome"></div>
+    <div class="lock" id="lock">locking in a prediction&hellip;</div>
+
+    <div class="throws">
+      <button data-throw="rock">rock</button>
+      <button data-throw="paper">paper</button>
+      <button data-throw="scissors">scissors</button>
+    </div>
+    <div class="controls">
+      <button id="new" class="ghost">Start again</button>
+      <span class="spacer"></span>
+      <span class="hint" id="status"></span>
+    </div>
+    <div id="error" class="err"></div>
+    <div class="rounds" id="rounds"></div>
+  </section>
+
+  <section class="row" style="align-items:flex-start">
+    <div>
+      <h2>What it expected</h2>
+      <div class="panel">
+        <div class="bars" id="spread"><p class="hint" style="margin:0">Throw something.</p></div>
+        <p class="hint" id="pattern" style="margin-bottom:0"></p>
+      </div>
+    </div>
+    <div>
+      <h2>Against a scripted opponent</h2>
+      <div class="panel">
+        <p class="hint" style="margin-top:0">
+          The honest test. Against a genuinely random opponent nothing can win more
+          than one round in three. Against anything with a habit, it should do
+          better.
+        </p>
+        <div class="row">
+          <div style="flex:1 1 220px">
+            <label for="bot">Opponent</label>
+            <select id="bot"></select>
+          </div>
+          <div style="flex:0 0 120px">
+            <label for="rounds">Rounds</label>
+            <input type="number" id="rounds" value="30" min="10" max="100" step="5">
+          </div>
+        </div>
+        <div class="controls">
+          <button id="simulate">Play it out</button>
+          <span class="spacer"></span>
+          <span class="hint" id="sim-status"></span>
+        </div>
+        <div id="sim-out" style="margin-top:14px"></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<script src="app.js"></script>
+</body>
+</html>

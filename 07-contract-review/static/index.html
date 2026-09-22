@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Contract review</title>
+<link rel="stylesheet" href="base.css">
+<style>
+  .risk { display: inline-flex; align-items: center; gap: 8px; }
+  .risk .dot { width: 10px; height: 10px; border-radius: 50%; background: #c9c4ba; }
+  .risk.r0 .dot { background: var(--good); }
+  .risk.r1 .dot { background: #94a3a8; }
+  .risk.r2 .dot { background: var(--warn); }
+  .risk.r3 .dot { background: var(--bad); }
+  tr.clause { cursor: pointer; }
+  tr.clause:hover { background: #faf8f3; }
+  tr.detail td { background: #faf8f3; font-size: 14px; }
+  .check { display: flex; align-items: flex-start; gap: 10px; padding: 9px 0; border-bottom: 1px solid var(--line); font-size: 15px; }
+  .check:last-child { border-bottom: 0; }
+  .check .mark { flex: 0 0 22px; font-weight: 700; }
+  .check.yes .mark { color: var(--good); }
+  .check.no .mark { color: var(--bad); }
+</style>
+</head>
+<body>
+<header class="top">
+  <div style="display:flex;align-items:baseline;gap:20px;flex-wrap:wrap">
+    <h1>A first pass over a contract</h1>
+    <span class="nav"><a href="whiteboard.html">whiteboard</a></span>
+  </div>
+  <p>
+    Paste an agreement. Every clause gets read against the same five questions, and
+    the document as a whole gets checked for the protections that ought to be in
+    it. The output is a reading order: which clauses a person should look at
+    first, and what is missing entirely. It is not legal advice.
+  </p>
+</header>
+
+<main>
+  <section class="panel">
+    <div class="row" style="margin-bottom:12px">
+      <div style="flex:0 0 340px">
+        <label for="samples">Sample agreement</label>
+        <select id="samples"></select>
+      </div>
+      <div style="flex:0 0 240px">
+        <label for="side">Reviewing on behalf of</label>
+        <select id="side"></select>
+      </div>
+      <div style="flex:1"></div>
+    </div>
+    <label for="text">The agreement</label>
+    <textarea id="text" spellcheck="false" style="min-height:220px;font-size:14px"></textarea>
+    <div class="controls">
+      <button id="run">Review it</button>
+      <span class="spacer"></span>
+      <span class="hint" id="status"></span>
+    </div>
+    <div id="error" class="err"></div>
+  </section>
+
+  <section>
+    <div class="panel">
+      <div class="stats">
+        <div class="stat"><div class="k">clauses read</div><div class="v" id="s-clauses">&mdash;</div></div>
+        <div class="stat"><div class="k">worth negotiating</div><div class="v" id="s-negotiate">&mdash;</div></div>
+        <div class="stat"><div class="k">missing protections</div><div class="v" id="s-missing">&mdash;</div></div>
+        <div class="stat"><div class="k">time</div><div class="v" id="s-time">&mdash;</div></div>
+        <div class="stat"><div class="k">cost</div><div class="v" id="s-cost">&mdash;</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="row" style="align-items:flex-start">
+    <div style="flex:1 1 620px">
+      <h2>Clause by clause</h2>
+      <div class="scroll">
+        <table>
+          <thead><tr><th>Clause</th><th>About</th><th>Favours</th><th>Risk</th><th>Flags</th></tr></thead>
+          <tbody id="rows"><tr><td colspan="5" class="hint">Not reviewed yet.</td></tr></tbody>
+        </table>
+      </div>
+      <p class="hint">Click a row to see the clause and the numbers behind it.</p>
+    </div>
+    <div style="flex:1 1 320px">
+      <h2>What should be in here</h2>
+      <div class="panel" id="checklist"><p class="hint">Not reviewed yet.</p></div>
+    </div>
+  </section>
+</main>
+
+<script src="app.js"></script>
+</body>
+</html>

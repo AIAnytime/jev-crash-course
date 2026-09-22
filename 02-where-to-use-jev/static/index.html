@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Where to use Jev</title>
+<link rel="stylesheet" href="base.css">
+</head>
+<body>
+<header class="top">
+  <div style="display:flex;align-items:baseline;gap:20px;flex-wrap:wrap">
+    <h1>Which jobs belong to a decision model</h1>
+    <span class="nav"><a href="whiteboard.html">whiteboard</a></span>
+  </div>
+  <p>
+    Describe any job your software has to do. Jev sorts it into one of three
+    buckets: plain code can do it, a decision model should do it, or it needs a
+    language model. Then run the built-in list and watch twelve jobs get sorted at
+    once.
+  </p>
+</header>
+
+<main>
+  <section class="panel">
+    <label for="job">A job in your app</label>
+    <textarea id="job" style="min-height:90px" spellcheck="false">Decide whether a support ticket is about billing, a bug, or a feature request</textarea>
+    <div class="controls">
+      <button id="decide">Sort this job</button>
+      <span class="spacer"></span>
+      <span class="hint">pick an example:</span>
+      <select id="examples" style="width:auto;max-width:420px"></select>
+    </div>
+    <div id="error" class="err"></div>
+  </section>
+
+  <section id="verdict-wrap" hidden>
+    <div class="panel">
+      <div class="row" style="align-items:center">
+        <div style="flex:0 0 300px">
+          <div class="stat"><div class="k">verdict</div><div class="v" id="owner">&mdash;</div></div>
+          <div class="hint" id="owner-sure"></div>
+        </div>
+        <div>
+          <div class="bars" id="owner-bars"></div>
+        </div>
+        <div style="flex:0 0 220px">
+          <div class="stats" style="gap:18px">
+            <div class="stat"><div class="k">time</div><div class="v" id="time">&mdash;</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="answers" id="reasons" style="margin-top:20px"></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>The whole list at once</h2>
+    <div class="panel">
+      <div class="controls" style="margin:0 0 16px">
+        <button id="run-all">Sort all twelve jobs</button>
+        <span class="spacer"></span>
+        <span class="hint" id="batch-stats"></span>
+      </div>
+      <div class="scroll">
+        <table id="table">
+          <thead>
+            <tr>
+              <th>Job</th>
+              <th>Owner</th>
+              <th class="num">Sure</th>
+              <th>Answers known up front</th>
+              <th>Has to write prose</th>
+              <th>Reasoning needed</th>
+            </tr>
+          </thead>
+          <tbody id="rows">
+            <tr><td colspan="6" class="hint">Not run yet.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="panel">
+    <h3>The rule of thumb</h3>
+    <p class="hint" style="margin:0">
+      If the possible answers can be written down before you see the input, it is a
+      decision, and a decision model can make it in milliseconds. If the job has to
+      produce new sentences, or reason through several steps, it stays with a
+      language model. If there is one correct answer and no judgement at all, it was
+      never an AI job to begin with.
+    </p>
+  </section>
+</main>
+
+<script src="app.js"></script>
+</body>
+</html>

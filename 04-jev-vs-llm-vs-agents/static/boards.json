@@ -1,0 +1,66 @@
+{
+  "title": "04 · Three machines, same four questions",
+  "boards": [
+    {
+      "name": "The three lanes",
+      "nodes": [
+        {"id": "rows", "x": 40, "y": 300, "w": 220, "h": 140, "text": "1,000 reviews", "step": 0},
+        {"id": "jev", "x": 340, "y": 90, "w": 380, "h": 140, "head": "decision model", "text": "one call → four answers", "size": 22, "tone": "accent", "step": 1},
+        {"id": "llm", "x": 340, "y": 300, "w": 380, "h": 140, "head": "language model", "text": "one call → strict JSON", "size": 22, "tone": "muted", "step": 2},
+        {"id": "agent", "x": 340, "y": 510, "w": 380, "h": 140, "head": "agent", "text": "call → tool → call again", "size": 22, "tone": "warn", "step": 3},
+        {"id": "r1", "x": 800, "y": 90, "w": 400, "h": 140, "text": "numbers, in milliseconds", "size": 22, "tone": "accent", "step": 4},
+        {"id": "r2", "x": 800, "y": 300, "w": 400, "h": 140, "text": "text that must be parsed", "size": 22, "tone": "muted", "step": 4},
+        {"id": "r3", "x": 800, "y": 510, "w": 400, "h": 140, "text": "two round trips per row", "size": 22, "tone": "warn", "step": 4}
+      ],
+      "arrows": [
+        {"from": "rows", "to": "jev", "step": 1},
+        {"from": "rows", "to": "llm", "step": 2},
+        {"from": "rows", "to": "agent", "step": 3},
+        {"from": "jev", "to": "r1", "step": 4},
+        {"from": "llm", "to": "r2", "step": 4},
+        {"from": "agent", "to": "r3", "step": 4}
+      ],
+      "notes": [
+        {"x": 40, "y": 680, "text": "Nothing in this job needs a tool. The agent lane is there to price the loop.", "width": 1100, "step": 5}
+      ]
+    },
+    {
+      "name": "What calibration means",
+      "nodes": [
+        {"id": "claim", "x": 80, "y": 120, "w": 500, "h": 150, "text": "\"I am 90% sure\"", "step": 0},
+        {"id": "check", "x": 680, "y": 120, "w": 500, "h": 150, "text": "in that bucket, was it right 9 times in 10?", "size": 22, "tone": "accent", "step": 1},
+        {"id": "yes", "x": 680, "y": 340, "w": 500, "h": 130, "text": "yes → you can put it in an if-statement", "size": 21, "tone": "good", "step": 2},
+        {"id": "no", "x": 680, "y": 520, "w": 500, "h": 130, "text": "no → your threshold is decoration", "size": 21, "tone": "bad", "step": 3}
+      ],
+      "arrows": [
+        {"from": "claim", "to": "check", "step": 1},
+        {"from": "check", "to": "yes", "step": 2},
+        {"from": "check", "to": "no", "step": 3}
+      ],
+      "notes": [
+        {"x": 80, "y": 360, "text": "Accuracy tells you how often it is right.\n\nCalibration tells you whether to believe it when it says how sure it is.\n\nOnly one of those two can be written into code.", "width": 520, "step": 4}
+      ]
+    },
+    {
+      "name": "The shape worth copying",
+      "nodes": [
+        {"id": "t", "x": 40, "y": 310, "w": 210, "h": 120, "text": "ticket", "step": 0},
+        {"id": "llm", "x": 300, "y": 310, "w": 300, "h": 120, "head": "language model", "text": "here are 5 options", "size": 21, "tone": "warn", "step": 1},
+        {"id": "jev", "x": 650, "y": 310, "w": 280, "h": 120, "head": "Jev", "text": "this one, 0.94", "size": 21, "tone": "accent", "step": 2},
+        {"id": "gate", "x": 980, "y": 310, "w": 250, "h": 120, "head": "your code", "text": "above 0.9?", "size": 21, "step": 3},
+        {"id": "run", "x": 980, "y": 130, "w": 250, "h": 110, "text": "run it", "tone": "good", "step": 4},
+        {"id": "human", "x": 980, "y": 500, "w": 250, "h": 110, "text": "ask a person", "tone": "muted", "step": 4}
+      ],
+      "arrows": [
+        {"from": "t", "to": "llm", "step": 1},
+        {"from": "llm", "to": "jev", "step": 2},
+        {"from": "jev", "to": "gate", "step": 3},
+        {"from": "gate", "to": "run", "step": 4},
+        {"from": "gate", "to": "human", "step": 4}
+      ],
+      "notes": [
+        {"x": 40, "y": 640, "text": "Generate with the model that writes. Decide with the model that decides. Act with code.", "width": 1150, "step": 5}
+      ]
+    }
+  ]
+}

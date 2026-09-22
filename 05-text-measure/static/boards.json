@@ -1,0 +1,56 @@
+{
+  "title": "05 · Measuring writing instead of rewriting it",
+  "boards": [
+    {
+      "name": "Measure, do not rewrite",
+      "nodes": [
+        {"id": "text", "x": 60, "y": 300, "w": 240, "h": 140, "text": "your draft", "step": 0},
+        {"id": "llm", "x": 400, "y": 110, "w": 400, "h": 160, "head": "the usual approach", "text": "the model rewrites it for you", "size": 22, "tone": "muted", "step": 1},
+        {"id": "jev", "x": 400, "y": 460, "w": 400, "h": 160, "head": "this tool", "text": "the model measures it and hands it back", "size": 22, "tone": "accent", "step": 2},
+        {"id": "o1", "x": 870, "y": 110, "w": 340, "h": 160, "text": "someone else's voice", "size": 22, "tone": "muted", "step": 1},
+        {"id": "o2", "x": 870, "y": 460, "w": 340, "h": 160, "text": "your voice, with a dashboard", "size": 22, "tone": "good", "step": 2}
+      ],
+      "arrows": [
+        {"from": "text", "to": "llm", "step": 1},
+        {"from": "text", "to": "jev", "step": 2},
+        {"from": "llm", "to": "o1", "step": 1},
+        {"from": "jev", "to": "o2", "step": 2}
+      ],
+      "notes": [
+        {"x": 60, "y": 670, "text": "A model that cannot write anything is oddly good at telling you how your writing lands.", "width": 1150, "step": 3}
+      ]
+    },
+    {
+      "name": "Seven dials",
+      "nodes": [
+        {"id": "a", "x": 70, "y": 150, "w": 340, "h": 110, "text": "clarity", "tone": "accent", "step": 0},
+        {"id": "b", "x": 70, "y": 290, "w": 340, "h": 110, "text": "warmth", "tone": "accent", "step": 0},
+        {"id": "c", "x": 70, "y": 430, "w": 340, "h": 110, "text": "hype", "tone": "accent", "step": 0},
+        {"id": "d", "x": 460, "y": 150, "w": 340, "h": 110, "text": "concreteness", "tone": "accent", "step": 1},
+        {"id": "e", "x": 460, "y": 290, "w": 340, "h": 110, "text": "reader effort", "tone": "accent", "step": 1},
+        {"id": "f", "x": 460, "y": 430, "w": 340, "h": 110, "text": "says what to do next", "size": 21, "tone": "good", "step": 2},
+        {"id": "g", "x": 850, "y": 150, "w": 340, "h": 110, "text": "worth replying to", "size": 21, "tone": "good", "step": 2}
+      ],
+      "arrows": [],
+      "notes": [
+        {"x": 850, "y": 330, "text": "Each dial is four words in a list.\n\nAdding an eighth costs you one more line of code and almost no extra time.", "width": 340, "step": 3},
+        {"x": 70, "y": 610, "text": "Every dial is a rubric you wrote. If you disagree with a score, change the words in the rubric.", "width": 700, "step": 4}
+      ]
+    },
+    {
+      "name": "Why it can run on every keystroke",
+      "nodes": [
+        {"id": "type", "x": 80, "y": 290, "w": 280, "h": 140, "text": "you stop typing", "step": 0},
+        {"id": "wait", "x": 440, "y": 290, "w": 280, "h": 140, "text": "700ms pause", "tone": "muted", "step": 1},
+        {"id": "call", "x": 800, "y": 290, "w": 380, "h": 140, "text": "one call,\nseven answers", "tone": "accent", "step": 2}
+      ],
+      "arrows": [
+        {"from": "type", "to": "wait", "step": 1},
+        {"from": "wait", "to": "call", "step": 2}
+      ],
+      "notes": [
+        {"x": 80, "y": 500, "text": "At a language model's price and speed this is a button you press when you are finished.\n\nAt this price and speed it is a live readout while you work. That is the whole difference.", "width": 1100, "step": 3}
+      ]
+    }
+  ]
+}

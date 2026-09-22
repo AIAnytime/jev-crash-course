@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Text measure</title>
+<link rel="stylesheet" href="base.css">
+<style>
+  .meter { margin-bottom: 14px; }
+  .meter .head { display: flex; justify-content: space-between; font-size: 14px; margin-bottom: 5px; }
+  .meter .head b { font-weight: 600; }
+  .meter .head span { color: var(--muted); }
+  .meter .track { height: 12px; background: #efece5; border-radius: 6px; position: relative; overflow: hidden; }
+  .meter .fill { height: 100%; background: var(--accent); border-radius: 6px; transition: width .3s ease; }
+  .meter .ticks { display: flex; justify-content: space-between; font-size: 11px; color: var(--muted); margin-top: 4px; }
+  .flags { display: flex; gap: 10px; margin-top: 16px; flex-wrap: wrap; }
+</style>
+</head>
+<body>
+<header class="top">
+  <div style="display:flex;align-items:baseline;gap:20px;flex-wrap:wrap">
+    <h1>A tool that measures writing instead of rewriting it</h1>
+    <span class="nav"><a href="whiteboard.html">whiteboard</a></span>
+  </div>
+  <p>
+    Type on the left. Five scores and two yes-or-no calls come back every time you
+    pause. Nothing rewrites your words; the tool only tells you what it sees, and
+    you decide what to change.
+  </p>
+</header>
+
+<main>
+  <section class="row" style="align-items:flex-start">
+    <div style="flex: 1 1 460px">
+      <div class="panel">
+        <label for="text">Your text</label>
+        <textarea id="text" style="min-height:300px" spellcheck="false"></textarea>
+        <div class="controls">
+          <button id="measure">Measure</button>
+          <label style="display:flex;gap:8px;align-items:center;color:var(--ink);margin:0">
+            <input type="checkbox" id="live" checked> measure while I type
+          </label>
+          <span class="spacer"></span>
+          <select id="samples" style="width:auto;max-width:240px"></select>
+        </div>
+        <div id="error" class="err"></div>
+      </div>
+    </div>
+
+    <div style="flex: 1 1 400px">
+      <div class="panel">
+        <div class="stats" style="margin-bottom:20px">
+          <div class="stat"><div class="k">measured in</div><div class="v" id="time">&mdash;</div></div>
+          <div class="stat"><div class="k">words</div><div class="v" id="words">&mdash;</div></div>
+          <div class="stat"><div class="k">cost</div><div class="v" id="cost">&mdash;</div></div>
+        </div>
+        <div id="meters"></div>
+        <div class="flags" id="flags"></div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Two versions, side by side</h2>
+    <div class="panel">
+      <div class="row">
+        <div>
+          <label for="a">Version A</label>
+          <textarea id="a" style="min-height:150px" spellcheck="false"></textarea>
+        </div>
+        <div>
+          <label for="b">Version B</label>
+          <textarea id="b" style="min-height:150px" spellcheck="false"></textarea>
+        </div>
+      </div>
+      <div class="controls">
+        <button id="compare">Measure both</button>
+        <span class="spacer"></span>
+        <span class="hint" id="compare-status"></span>
+      </div>
+      <div id="compare-out" style="margin-top:18px"></div>
+    </div>
+  </section>
+</main>
+
+<script src="app.js"></script>
+</body>
+</html>

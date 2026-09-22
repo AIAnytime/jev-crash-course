@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Jev vs a language model vs an agent</title>
+<link rel="stylesheet" href="base.css">
+<style>
+  .tabs { display: flex; gap: 8px; margin: 0 0 22px; flex-wrap: wrap; }
+  .tabs button { background: #fff; color: var(--ink); border: 1px solid var(--line); }
+  .tabs button.on { background: var(--ink); color: #fff; border-color: var(--ink); }
+  .lane { border: 1px solid var(--line); border-radius: 10px; background: #fff; padding: 18px; }
+  .lane h3 { display: flex; justify-content: space-between; align-items: baseline; }
+  .lane .track { height: 10px; background: #efece5; border-radius: 6px; overflow: hidden; margin: 12px 0 16px; }
+  .lane .fill { height: 100%; width: 0; background: var(--accent); transition: width .2s linear; }
+  .lane.jev .fill { background: var(--accent); }
+  .lane.gpt .fill { background: #868e96; }
+  .lane.agent .fill { background: var(--warn); }
+  .keys { font-size: 13px; color: var(--muted); }
+  .keys b { font-weight: 600; color: var(--ink); }
+</style>
+</head>
+<body>
+<header class="top">
+  <div style="display:flex;align-items:baseline;gap:20px;flex-wrap:wrap">
+    <h1>Same thousand reviews, three different machines</h1>
+    <span class="nav"><a href="whiteboard.html">whiteboard</a></span>
+  </div>
+  <p>
+    A decision model, a language model, and an agent all answer the same four
+    questions about the same app-store reviews. Nothing here is simulated: every
+    row is a live call, and the clock and the bill are the real ones.
+  </p>
+  <p class="keys" id="keys"></p>
+</header>
+
+<main>
+  <div class="tabs">
+    <button data-tab="race" class="on">The race</button>
+    <button data-tab="calibration">Calibration</button>
+    <button data-tab="pattern">The pattern</button>
+    <button data-tab="questions">The questions</button>
+  </div>
+
+  <section data-panel="race">
+    <div class="panel">
+      <div class="row">
+        <div style="flex:0 0 150px">
+          <label for="n">Reviews</label>
+          <input type="number" id="n" value="100" min="10" max="1000" step="10">
+        </div>
+        <div style="flex:0 0 150px">
+          <label for="concurrency">In flight</label>
+          <input type="number" id="concurrency" value="20" min="1" max="100">
+        </div>
+        <div style="flex:0 0 190px">
+          <label for="model">Language model</label>
+          <select id="model"></select>
+        </div>
+        <div>
+          <label>Lanes</label>
+          <div style="display:flex;gap:16px;padding-top:6px">
+            <label style="display:flex;gap:7px;align-items:center;color:var(--ink)"><input type="checkbox" value="jev" checked> Jev</label>
+            <label style="display:flex;gap:7px;align-items:center;color:var(--ink)"><input type="checkbox" value="gpt" checked> language model</label>
+            <label style="display:flex;gap:7px;align-items:center;color:var(--ink)"><input type="checkbox" value="agent"> agent</label>
+          </div>
+        </div>
+      </div>
+      <div class="controls">
+        <button id="start">Start the race</button>
+        <span class="spacer"></span>
+        <span class="hint" id="race-status"></span>
+      </div>
+      <div id="error" class="err"></div>
+    </div>
+
+    <div class="row" id="lanes" style="margin-top:20px;align-items:flex-start"></div>
+
+    <div class="panel" style="margin-top:20px">
+      <h3>A few rows, side by side</h3>
+      <div class="scroll" style="border:0">
+        <table>
+          <thead><tr><th>Review</th><th class="num">Stars</th><th>Answers</th></tr></thead>
+          <tbody id="samples"><tr><td colspan="3" class="hint">Finish a race to see rows here.</td></tr></tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section data-panel="calibration" hidden>
+    <div class="panel">
+      <p class="hint" style="margin-top:0">
+        Every lane states how sure it is. Bucket those statements and ask: in the
+        bucket where it said ninety percent, was it right ninety percent of the
+        time? The diagonal is perfect. Below it means overconfident, which is the
+        one that quietly breaks a threshold you wrote in code.
+      </p>
+      <div id="calibration"><p class="hint">Run a race first. Calibration is measured from the same rows.</p></div>
+    </div>
+  </section>
+
+  <section data-panel="pattern" hidden>
+    <div class="panel">
+      <p class="hint" style="margin-top:0">
+        The language model proposes what could be done. Jev picks one and says how
+        sure it is and how risky it is. Ordinary code decides whether that is good
+        enough to run without a person.
+      </p>
+      <label for="ticket">An inbound ticket</label>
+      <textarea id="ticket" style="min-height:100px">I was charged twice for the annual plan this morning and I need the duplicate refunded today before it hits my overdraft.</textarea>
+      <div class="controls">
+        <button id="run-pattern">Propose, then decide</button>
+        <span class="spacer"></span>
+        <span class="hint" id="pattern-status"></span>
+      </div>
+      <div id="pattern-out" style="margin-top:18px"></div>
+    </div>
+  </section>
+
+  <section data-panel="questions" hidden>
+    <div class="panel">
+      <p class="hint" style="margin-top:0">
+        All three lanes answer exactly these four questions about each review. The
+        star rating is never shown to any of them; it is kept back as the answer key.
+      </p>
+      <div id="questions"></div>
+    </div>
+  </section>
+</main>
+
+<script src="app.js"></script>
+</body>
+</html>

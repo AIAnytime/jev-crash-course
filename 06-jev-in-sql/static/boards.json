@@ -1,0 +1,50 @@
+{
+  "title": "06 · A judgement call inside a SQL query",
+  "boards": [
+    {
+      "name": "The function that thinks",
+      "nodes": [
+        {"id": "sql", "x": 60, "y": 180, "w": 520, "h": 260, "head": "your query", "text": "SELECT jev_topic(text),\n       count(*)\nFROM reviews\nWHERE jev_is_bug(text) > 0.8\nGROUP BY 1", "size": 21, "step": 0},
+        {"id": "db", "x": 700, "y": 180, "w": 460, "h": 120, "head": "the database", "text": "hands over the whole column", "size": 21, "tone": "muted", "step": 1},
+        {"id": "jev", "x": 700, "y": 330, "w": 460, "h": 120, "head": "Jev", "text": "answers the whole column at once", "size": 21, "tone": "accent", "step": 2}
+      ],
+      "arrows": [
+        {"from": "sql", "to": "db", "step": 1},
+        {"from": "db", "to": "jev", "step": 2}
+      ],
+      "notes": [
+        {"x": 60, "y": 520, "text": "Row by row, a thousand rows would take several minutes.\nColumn at a time, with forty calls in flight, it takes about ten seconds.", "width": 1100, "step": 3}
+      ]
+    },
+    {
+      "name": "What that unlocks",
+      "nodes": [
+        {"id": "old", "x": 70, "y": 140, "w": 480, "h": 220, "head": "before", "text": "export to CSV\nwrite a script\nwait\nload the results back", "size": 21, "tone": "muted", "step": 0},
+        {"id": "new", "x": 680, "y": 140, "w": 480, "h": 220, "head": "now", "text": "type the question\npress run", "size": 22, "tone": "accent", "step": 1},
+        {"id": "join", "x": 70, "y": 430, "w": 1090, "h": 150, "text": "and it joins, groups and filters like any other column", "size": 22, "tone": "good", "step": 2}
+      ],
+      "arrows": [
+        {"from": "old", "to": "new", "step": 1}
+      ],
+      "notes": [
+        {"x": 70, "y": 630, "text": "The analyst never leaves SQL. That is the part that changes who can use this.", "width": 1100, "step": 3}
+      ]
+    },
+    {
+      "name": "The catch",
+      "nodes": [
+        {"id": "a", "x": 80, "y": 150, "w": 520, "h": 150, "text": "every row is a network call", "tone": "warn", "step": 0},
+        {"id": "b", "x": 80, "y": 340, "w": 520, "h": 150, "text": "so cache by text, and scan what you need", "size": 22, "tone": "good", "step": 1},
+        {"id": "c", "x": 680, "y": 150, "w": 500, "h": 150, "text": "the same query twice costs once", "size": 22, "tone": "good", "step": 2},
+        {"id": "d", "x": 680, "y": 340, "w": 500, "h": 150, "text": "put the cheap filters first in the WHERE", "size": 22, "tone": "accent", "step": 3}
+      ],
+      "arrows": [
+        {"from": "a", "to": "b", "step": 1},
+        {"from": "b", "to": "c", "step": 2}
+      ],
+      "notes": [
+        {"x": 80, "y": 560, "text": "A model in a query is still a model. Treat it like an expensive column, not a free one.", "width": 1100, "step": 4}
+      ]
+    }
+  ]
+}

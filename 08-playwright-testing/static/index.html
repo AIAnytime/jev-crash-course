@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Browser tests in English</title>
+<link rel="stylesheet" href="base.css">
+<style>
+  .step { border: 1px solid var(--line); border-radius: 10px; background: #fff; padding: 16px 18px; margin-bottom: 14px; }
+  .step.pass { border-left: 5px solid var(--good); }
+  .step.fail { border-left: 5px solid var(--bad); }
+  .step.unsure { border-left: 5px solid var(--warn); }
+  .step h3 { display: flex; justify-content: space-between; align-items: baseline; margin: 0 0 10px; }
+  .step .verdict { font-size: 13px; text-transform: uppercase; letter-spacing: .06em; }
+  .step.pass .verdict { color: var(--good); }
+  .step.fail .verdict { color: var(--bad); }
+  .step.unsure .verdict { color: var(--warn); }
+  .shot { border: 1px solid var(--line); border-radius: 8px; width: 100%; display: block; }
+  .seen { font-family: var(--mono); font-size: 12px; white-space: pre-wrap; background: #faf8f3; border-radius: 8px; padding: 10px; max-height: 150px; overflow: auto; color: #555; }
+  .banner { font-size: 21px; font-weight: 650; padding: 16px 20px; border-radius: 10px; margin-bottom: 20px; }
+  .banner.pass { background: #e7f6ea; color: var(--good); }
+  .banner.fail { background: #fbeaea; color: var(--bad); }
+  .banner.unsure { background: #fdf1e7; color: var(--warn); }
+</style>
+</head>
+<body>
+<header class="top">
+  <div style="display:flex;align-items:baseline;gap:20px;flex-wrap:wrap">
+    <h1>Browser tests that read the page</h1>
+    <span class="nav">
+      <a href="shop/index.html" target="_blank">the shop</a>
+      <a href="whiteboard.html">whiteboard</a>
+    </span>
+  </div>
+  <p>
+    A browser clicks through a small shop. After every step the page is handed to
+    the model, which answers four questions about it: what state is this page in,
+    is something wrong from the customer's point of view, would an ordinary person
+    understand the message, and can they carry on. No selectors, no expected
+    strings.
+  </p>
+</header>
+
+<main>
+  <section class="panel">
+    <div class="row">
+      <div style="flex:0 0 340px">
+        <label for="scenario">Scenario</label>
+        <select id="scenario"></select>
+      </div>
+      <div style="flex:0 0 260px">
+        <label>Build under test</label>
+        <div style="display:flex;gap:16px;padding-top:6px">
+          <label style="display:flex;gap:7px;align-items:center;color:var(--ink);margin:0">
+            <input type="radio" name="build" value="good" checked> working
+          </label>
+          <label style="display:flex;gap:7px;align-items:center;color:var(--ink);margin:0">
+            <input type="radio" name="build" value="bug"> broken
+          </label>
+        </div>
+      </div>
+      <div style="flex:1"></div>
+    </div>
+    <div class="controls">
+      <button id="run">Run the test</button>
+      <span class="spacer"></span>
+      <span class="hint" id="status"></span>
+    </div>
+    <div id="error" class="err"></div>
+    <p class="hint" id="plan" style="margin-top:14px"></p>
+  </section>
+
+  <section>
+    <div id="banner"></div>
+    <div id="steps"></div>
+  </section>
+</main>
+
+<script src="app.js"></script>
+</body>
+</html>

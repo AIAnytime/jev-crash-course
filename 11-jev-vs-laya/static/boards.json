@@ -1,0 +1,55 @@
+{
+  "title": "11 · The hosted one against the one you run yourself",
+  "boards": [
+    {
+      "name": "Two ways to get the same answer",
+      "nodes": [
+        {"id": "text", "x": 40, "y": 300, "w": 220, "h": 140, "text": "a review", "step": 0},
+        {"id": "net", "x": 330, "y": 120, "w": 340, "h": 160, "head": "Jev", "text": "over the network", "sub": "billed per token", "size": 22, "tone": "accent", "step": 1},
+        {"id": "local", "x": 330, "y": 460, "w": 340, "h": 160, "head": "Laya", "text": "on this machine", "sub": "weights on disk", "size": 22, "tone": "good", "step": 2},
+        {"id": "out1", "x": 760, "y": 120, "w": 440, "h": 160, "text": "numbers, in about 380ms", "size": 21, "tone": "accent", "step": 3},
+        {"id": "out2", "x": 760, "y": 460, "w": 440, "h": 160, "text": "the same numbers, in about 230ms", "size": 21, "tone": "good", "step": 4}
+      ],
+      "arrows": [
+        {"from": "text", "to": "net", "step": 1},
+        {"from": "text", "to": "local", "step": 2},
+        {"from": "net", "to": "out1", "step": 3},
+        {"from": "local", "to": "out2", "step": 4}
+      ],
+      "notes": [
+        {"x": 40, "y": 670, "text": "Same three question types. Same shape of answer. One of them never leaves the building.", "width": 1180, "step": 5}
+      ]
+    },
+    {
+      "name": "What 200 reviews showed",
+      "nodes": [
+        {"id": "a", "x": 60, "y": 120, "w": 550, "h": 150, "head": "how often right", "text": "0.805  vs  0.800", "size": 24, "tone": "muted", "step": 0},
+        {"id": "b", "x": 670, "y": 120, "w": 550, "h": 150, "head": "one call", "text": "380ms  vs  230ms", "size": 24, "tone": "good", "step": 1},
+        {"id": "c", "x": 60, "y": 310, "w": 550, "h": 150, "head": "all 200, wall clock", "text": "5.3s  vs  49.7s", "size": 24, "tone": "accent", "step": 2},
+        {"id": "d", "x": 670, "y": 310, "w": 550, "h": 150, "head": "the bill", "text": "half a cent  vs  nothing", "size": 22, "tone": "good", "step": 3},
+        {"id": "e", "x": 60, "y": 500, "w": 1160, "h": 140, "head": "but they agreed on only half the topic calls", "text": "same score, different answers", "size": 22, "tone": "warn", "step": 4}
+      ],
+      "arrows": [],
+      "notes": [
+        {"x": 60, "y": 675, "text": "A tie on the scoreboard is not the same thing as interchangeable.", "width": 1180, "step": 5}
+      ]
+    },
+    {
+      "name": "So which one",
+      "nodes": [
+        {"id": "l1", "x": 60, "y": 130, "w": 540, "h": 120, "text": "the data cannot leave", "size": 22, "tone": "good", "step": 0},
+        {"id": "l2", "x": 60, "y": 270, "w": 540, "h": 120, "text": "you need a tight, predictable tail", "size": 22, "tone": "good", "step": 1},
+        {"id": "l3", "x": 60, "y": 410, "w": 540, "h": 120, "text": "it has to work offline", "size": 22, "tone": "good", "step": 2},
+        {"id": "r1", "x": 680, "y": 130, "w": 540, "h": 120, "text": "you need bursts of throughput", "size": 22, "tone": "accent", "step": 3},
+        {"id": "r2", "x": 680, "y": 270, "w": 540, "h": 120, "text": "nobody wants to run a GPU", "size": 22, "tone": "accent", "step": 4},
+        {"id": "r3", "x": 680, "y": 410, "w": 540, "h": 120, "text": "you want someone else on call", "size": 22, "tone": "accent", "step": 5}
+      ],
+      "arrows": [],
+      "notes": [
+        {"x": 60, "y": 90, "text": "run it yourself when…", "width": 540, "color": "#2f9e44", "step": 0},
+        {"x": 680, "y": 90, "text": "call the API when…", "width": 540, "color": "#1971c2", "step": 3},
+        {"x": 60, "y": 600, "text": "Both answer the same way, so this is a deployment decision, not a model decision.\nWrite the questions once and you can change your mind later.", "width": 1180, "step": 6}
+      ]
+    }
+  ]
+}

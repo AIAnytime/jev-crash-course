@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Jev vs Laya</title>
+<link rel="stylesheet" href="base.css">
+<style>
+  .tabs { display: flex; gap: 8px; margin: 0 0 22px; flex-wrap: wrap; }
+  .tabs button { background: #fff; color: var(--ink); border: 1px solid var(--line); }
+  .tabs button.on { background: var(--ink); color: #fff; border-color: var(--ink); }
+  .lane { border: 1px solid var(--line); border-radius: 10px; background: #fff; padding: 18px; }
+  .lane h3 { margin: 0 0 4px; display: flex; justify-content: space-between; align-items: baseline; }
+  .lane .where { font-size: 13px; color: var(--muted); font-weight: 400; }
+  .lane.laya { border-left: 5px solid #7048e8; }
+  .lane.jev { border-left: 5px solid var(--accent); }
+  .keys { font-size: 13px; color: var(--muted); }
+  .keys b { color: var(--ink); font-weight: 600; }
+  .agree { font-size: 12px; padding: 3px 8px; border-radius: 20px; }
+  .agree.same { background: #e7f6ea; color: var(--good); }
+  .agree.diff { background: #fdf0e6; color: var(--warn); }
+  td.wrap { max-width: 420px; white-space: normal; }
+  .miss { color: var(--bad); font-weight: 600; }
+  .hit { color: var(--good); }
+</style>
+</head>
+<body>
+<header class="top">
+  <div style="display:flex;align-items:baseline;gap:20px;flex-wrap:wrap">
+    <h1>The hosted one against the one you run yourself</h1>
+    <span class="nav"><a href="whiteboard.html">whiteboard</a></span>
+  </div>
+  <p>
+    Two models that do the same job: answer fixed questions about text and return
+    numbers, never sentences. One is an API you call and pay for by the token. The
+    other is a few hundred megabytes of weights that run on this machine for
+    nothing. Same four questions, same reviews, same answer key.
+  </p>
+  <p class="keys" id="keys"></p>
+</header>
+
+<main>
+  <div class="tabs">
+    <button data-tab="one" class="on">One review</button>
+    <button data-tab="bench">The benchmark</button>
+    <button data-tab="languages">Six languages</button>
+    <button data-tab="questions">The questions</button>
+  </div>
+
+  <section data-panel="one">
+    <div class="panel">
+      <label for="text">A review</label>
+      <textarea id="text" spellcheck="false" style="min-height:110px">Worked fine for a year, then the last update made it crash every time I open my library. I have re-installed twice. Looking for an alternative now.</textarea>
+      <div class="controls">
+        <button id="ask">Ask both</button>
+        <button id="warm" class="ghost">Load Laya into memory</button>
+        <span class="spacer"></span>
+        <span class="hint" id="one-status"></span>
+      </div>
+      <div id="error" class="err"></div>
+    </div>
+    <div class="row" style="margin-top:20px;align-items:flex-start" id="lanes"></div>
+  </section>
+
+  <section data-panel="bench" hidden>
+    <div class="panel">
+      <p class="hint" style="margin-top:0">
+        Both engines answer the same reviews. The star rating the reviewer left is
+        held back and used as the answer key. Jev runs with calls in flight, which
+        is how you would use an API. Laya runs one at a time, which is what one
+        local model does. Compare the per-call medians; the wall clocks tell you
+        what each setup actually delivers.
+      </p>
+      <div class="row">
+        <div style="flex:0 0 160px">
+          <label for="n">Reviews</label>
+          <input type="number" id="n" value="40" min="10" max="300" step="10">
+        </div>
+        <div style="flex:0 0 160px">
+          <label for="concurrency">Jev in flight</label>
+          <input type="number" id="concurrency" value="20" min="1" max="60">
+        </div>
+        <div style="flex:1"></div>
+      </div>
+      <div class="controls">
+        <button id="run-bench">Run the benchmark</button>
+        <span class="spacer"></span>
+        <span class="hint" id="bench-status"></span>
+      </div>
+    </div>
+
+    <div class="row" id="bench-lanes" style="margin-top:20px;align-items:flex-start"></div>
+
+    <div class="panel" style="margin-top:20px">
+      <h3>How often they said the same thing</h3>
+      <div class="bars" id="agreement"><p class="hint" style="margin:0">Run the benchmark.</p></div>
+    </div>
+
+    <div style="margin-top:20px">
+      <h2>Where they split</h2>
+      <div class="scroll">
+        <table>
+          <thead><tr><th>Review</th><th class="num">Stars</th><th>Answer key</th><th>Jev</th><th>Laya</th></tr></thead>
+          <tbody id="samples"><tr><td colspan="5" class="hint">Run the benchmark.</td></tr></tbody>
+        </table>
+      </div>
+      <p class="hint">Disagreements first. Green matches the star rating, red does not.</p>
+    </div>
+  </section>
+
+  <section data-panel="languages" hidden>
+    <div class="panel">
+      <p class="hint" style="margin-top:0">
+        The same complaint in six languages. Laya ships a separate multilingual
+        checkpoint, and its own documentation says the English one falls over
+        outside Latin script, so both are run here. The first run loads a second
+        set of weights and takes a moment.
+      </p>
+      <div class="controls" style="margin:0">
+        <button id="run-langs">Run all six</button>
+        <span class="spacer"></span>
+        <span class="hint" id="lang-status"></span>
+      </div>
+    </div>
+    <div class="scroll" style="margin-top:18px">
+      <table>
+        <thead><tr><th>Language</th><th>Script</th><th>Jev</th><th>Laya, English</th><th>Laya, multilingual</th></tr></thead>
+        <tbody id="langs"><tr><td colspan="5" class="hint">Not run yet.</td></tr></tbody>
+      </table>
+    </div>
+  </section>
+
+  <section data-panel="questions" hidden>
+    <div class="panel">
+      <p class="hint" style="margin-top:0">
+        The questions are written once and rendered into whichever shape each
+        engine wants: typed objects over HTTP for one, plain dictionaries for the
+        other. That is the whole porting effort, and it is in
+        <code>engines.py</code>.
+      </p>
+      <div id="questions"></div>
+    </div>
+  </section>
+</main>
+
+<script src="app.js"></script>
+</body>
+</html>

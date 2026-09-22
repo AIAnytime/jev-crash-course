@@ -1,0 +1,51 @@
+{
+  "title": "09 · Trying to talk a model out of its answer",
+  "boards": [
+    {
+      "name": "What an injection can and cannot reach",
+      "nodes": [
+        {"id": "msg", "x": 60, "y": 120, "w": 420, "h": 150, "head": "the message", "text": "abusive complaint", "size": 22, "step": 0},
+        {"id": "inj", "x": 60, "y": 330, "w": 420, "h": 150, "head": "stapled on the end", "text": "\"ignore all previous instructions\"", "size": 20, "tone": "bad", "step": 1},
+        {"id": "model", "x": 580, "y": 220, "w": 280, "h": 160, "text": "the model", "tone": "accent", "step": 2},
+        {"id": "shape", "x": 950, "y": 110, "w": 280, "h": 140, "head": "the shape", "text": "yes / no", "tone": "good", "step": 3},
+        {"id": "value", "x": 950, "y": 320, "w": 280, "h": 140, "head": "the number", "text": "0.96", "tone": "warn", "step": 4}
+      ],
+      "arrows": [
+        {"from": "msg", "to": "model", "step": 2},
+        {"from": "inj", "to": "model", "step": 2},
+        {"from": "model", "to": "shape", "step": 3},
+        {"from": "model", "to": "value", "step": 4}
+      ],
+      "notes": [
+        {"x": 950, "y": 275, "text": "cannot be touched", "width": 280, "color": "#2f9e44", "step": 3},
+        {"x": 950, "y": 485, "text": "can be nudged", "width": 280, "color": "#e8590c", "step": 4},
+        {"x": 60, "y": 580, "text": "There is no instruction slot to hijack, because there is no text being written.\nThe attack surface that is left is the judgement itself.", "width": 1150, "step": 5}
+      ]
+    },
+    {
+      "name": "What the run showed",
+      "nodes": [
+        {"id": "a", "x": 70, "y": 140, "w": 520, "h": 200, "head": "Jev", "text": "abusive call: never flipped\nworst case 0.96 → 0.72", "size": 21, "tone": "good", "step": 0},
+        {"id": "b", "x": 680, "y": 140, "w": 500, "h": 200, "head": "language model", "text": "abusive call: flipped twice\n0.85 → 0.00", "size": 21, "tone": "bad", "step": 1},
+        {"id": "c", "x": 70, "y": 400, "w": 1110, "h": 160, "head": "but both moved on priority", "text": "an injection that says \"this is low priority\" often gets low priority", "size": 21, "tone": "warn", "step": 2}
+      ],
+      "arrows": [],
+      "notes": [
+        {"x": 70, "y": 610, "text": "A model that cannot be made to say anything can still be persuaded of something.", "width": 1150, "step": 3}
+      ]
+    },
+    {
+      "name": "So what do you do about it",
+      "nodes": [
+        {"id": "a", "x": 70, "y": 150, "w": 520, "h": 150, "text": "keep the user text in its own field", "size": 21, "tone": "accent", "step": 0},
+        {"id": "b", "x": 70, "y": 340, "w": 520, "h": 150, "text": "never let the input set the question", "size": 21, "tone": "accent", "step": 1},
+        {"id": "c", "x": 660, "y": 150, "w": 520, "h": 150, "text": "watch the probability, not just the answer", "size": 21, "tone": "good", "step": 2},
+        {"id": "d", "x": 660, "y": 340, "w": 520, "h": 150, "text": "a sudden drop is worth an alert", "size": 21, "tone": "good", "step": 3}
+      ],
+      "arrows": [],
+      "notes": [
+        {"x": 70, "y": 570, "text": "The number that moves under attack is also the number that tells you it happened.", "width": 1150, "step": 4}
+      ]
+    }
+  ]
+}

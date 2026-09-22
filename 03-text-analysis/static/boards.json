@@ -1,0 +1,297 @@
+{
+  "title": "03 · Six questions in one trip",
+  "boards": [
+    {
+      "name": "Read once, answer many",
+      "nodes": [
+        {
+          "id": "text",
+          "x": 60,
+          "y": 300,
+          "w": 230,
+          "h": 130,
+          "text": "one piece of text",
+          "size": 23,
+          "step": 0
+        },
+        {
+          "id": "read",
+          "x": 350,
+          "y": 300,
+          "w": 250,
+          "h": 130,
+          "text": "read once",
+          "sub": "the slow part",
+          "tone": "accent",
+          "step": 1
+        },
+        {
+          "id": "box",
+          "x": 680,
+          "y": 95,
+          "w": 540,
+          "h": 495,
+          "head": "six questions, answered together",
+          "text": "",
+          "shape": "rect",
+          "dashed": true,
+          "tone": "muted",
+          "step": 2
+        },
+        {
+          "id": "q1",
+          "x": 710,
+          "y": 165,
+          "w": 230,
+          "h": 105,
+          "text": "how do they feel?",
+          "size": 20,
+          "shape": "none",
+          "step": 2
+        },
+        {
+          "id": "q2",
+          "x": 960,
+          "y": 165,
+          "w": 230,
+          "h": 105,
+          "text": "what do they want?",
+          "size": 20,
+          "shape": "none",
+          "step": 2
+        },
+        {
+          "id": "q3",
+          "x": 710,
+          "y": 300,
+          "w": 230,
+          "h": 105,
+          "text": "what language?",
+          "size": 20,
+          "shape": "none",
+          "step": 2
+        },
+        {
+          "id": "q4",
+          "x": 960,
+          "y": 300,
+          "w": 230,
+          "h": 105,
+          "text": "personal info in it?",
+          "size": 20,
+          "shape": "none",
+          "step": 2
+        },
+        {
+          "id": "q5",
+          "x": 710,
+          "y": 435,
+          "w": 230,
+          "h": 105,
+          "text": "is it abusive?",
+          "size": 20,
+          "shape": "none",
+          "step": 2
+        },
+        {
+          "id": "q6",
+          "x": 960,
+          "y": 435,
+          "w": 230,
+          "h": 105,
+          "text": "how formal?",
+          "size": 20,
+          "shape": "none",
+          "step": 2
+        }
+      ],
+      "arrows": [
+        {
+          "from": "text",
+          "to": "read",
+          "step": 1
+        },
+        {
+          "from": "read",
+          "to": "box",
+          "step": 2
+        }
+      ],
+      "notes": [
+        {
+          "x": 60,
+          "y": 660,
+          "text": "One reading of the text. Six answers off that same reading, side by side rather than one after another.",
+          "width": 1160,
+          "step": 3
+        }
+      ]
+    },
+    {
+      "name": "Why six costs what one costs",
+      "nodes": [
+        {
+          "id": "llm",
+          "x": 70,
+          "y": 130,
+          "w": 480,
+          "h": 240,
+          "head": "a language model",
+          "text": "question 1 → wait\nquestion 2 → wait\nquestion 3 → wait",
+          "size": 22,
+          "tone": "muted",
+          "step": 0
+        },
+        {
+          "id": "jev",
+          "x": 690,
+          "y": 130,
+          "w": 480,
+          "h": 240,
+          "head": "Jev",
+          "text": "read the text\nthen all six at once",
+          "size": 22,
+          "tone": "accent",
+          "step": 1
+        },
+        {
+          "id": "t1",
+          "x": 70,
+          "y": 430,
+          "w": 480,
+          "h": 110,
+          "text": "six trips, six waits",
+          "tone": "muted",
+          "step": 0
+        },
+        {
+          "id": "t2",
+          "x": 690,
+          "y": 430,
+          "w": 480,
+          "h": 110,
+          "text": "one trip, one wait",
+          "tone": "good",
+          "step": 1
+        }
+      ],
+      "arrows": [
+        {
+          "from": "llm",
+          "to": "t1",
+          "step": 0
+        },
+        {
+          "from": "jev",
+          "to": "t2",
+          "step": 1
+        }
+      ],
+      "notes": [
+        {
+          "x": 70,
+          "y": 610,
+          "text": "Adding questions is nearly free. That changes what you bother to measure.",
+          "width": 1100,
+          "step": 2
+        }
+      ]
+    },
+    {
+      "name": "What you do with it",
+      "nodes": [
+        {
+          "id": "in",
+          "x": 70,
+          "y": 300,
+          "w": 240,
+          "h": 130,
+          "text": "incoming message",
+          "step": 0
+        },
+        {
+          "id": "six",
+          "x": 390,
+          "y": 300,
+          "w": 260,
+          "h": 130,
+          "text": "six answers",
+          "tone": "accent",
+          "step": 1
+        },
+        {
+          "id": "a",
+          "x": 740,
+          "y": 110,
+          "w": 430,
+          "h": 110,
+          "text": "personal info → redact before storing",
+          "size": 21,
+          "tone": "bad",
+          "step": 2
+        },
+        {
+          "id": "b",
+          "x": 740,
+          "y": 255,
+          "w": 430,
+          "h": 110,
+          "text": "abusive → hold for review",
+          "size": 21,
+          "tone": "warn",
+          "step": 3
+        },
+        {
+          "id": "c",
+          "x": 740,
+          "y": 400,
+          "w": 430,
+          "h": 110,
+          "text": "complaint + negative → front of the queue",
+          "size": 21,
+          "tone": "accent",
+          "step": 4
+        },
+        {
+          "id": "d",
+          "x": 740,
+          "y": 545,
+          "w": 430,
+          "h": 110,
+          "text": "not english → route to the right desk",
+          "size": 21,
+          "tone": "good",
+          "step": 5
+        }
+      ],
+      "arrows": [
+        {
+          "from": "in",
+          "to": "six",
+          "step": 1
+        },
+        {
+          "from": "six",
+          "to": "a",
+          "step": 2
+        },
+        {
+          "from": "six",
+          "to": "b",
+          "step": 3
+        },
+        {
+          "from": "six",
+          "to": "c",
+          "step": 4
+        },
+        {
+          "from": "six",
+          "to": "d",
+          "step": 5
+        }
+      ],
+      "notes": []
+    }
+  ]
+}

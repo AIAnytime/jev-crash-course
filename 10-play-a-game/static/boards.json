@@ -1,0 +1,50 @@
+{
+  "title": "10 · A game against a model that cannot play",
+  "boards": [
+    {
+      "name": "It never picks a move",
+      "nodes": [
+        {"id": "hist", "x": 60, "y": 290, "w": 280, "h": 150, "head": "what you threw", "text": "the last 14 rounds", "size": 21, "step": 0},
+        {"id": "jev", "x": 430, "y": 290, "w": 330, "h": 150, "head": "Jev", "text": "\"rock, 0.71\"", "size": 23, "tone": "accent", "step": 1},
+        {"id": "code", "x": 850, "y": 290, "w": 330, "h": 150, "head": "your code", "text": "play paper", "size": 23, "tone": "good", "step": 2}
+      ],
+      "arrows": [
+        {"from": "hist", "to": "jev", "text": "one question", "step": 1, "dy": -24},
+        {"from": "jev", "to": "code", "text": "one number", "step": 2, "dy": -24}
+      ],
+      "notes": [
+        {"x": 60, "y": 540, "text": "The model is asked what you will do, not what it should do.\nChoosing the counter is three lines of ordinary code.", "width": 1100, "step": 3}
+      ]
+    },
+    {
+      "name": "Instinct, not reasoning",
+      "nodes": [
+        {"id": "a", "x": 70, "y": 140, "w": 520, "h": 160, "head": "always rock", "text": "it wins every round", "size": 22, "tone": "good", "step": 0},
+        {"id": "b", "x": 70, "y": 340, "w": 520, "h": 160, "head": "rock, paper, scissors, repeat", "text": "it predicts what you just threw, and lags a round behind", "size": 20, "tone": "warn", "step": 1},
+        {"id": "c", "x": 680, "y": 140, "w": 500, "h": 160, "head": "genuinely random", "text": "one win in three, exactly as it must be", "size": 21, "tone": "muted", "step": 2},
+        {"id": "d", "x": 680, "y": 340, "w": 500, "h": 160, "head": "a person", "text": "somewhere in between, because people have habits", "size": 21, "tone": "accent", "step": 3}
+      ],
+      "arrows": [],
+      "notes": [
+        {"x": 70, "y": 570, "text": "A habit it catches immediately. A sequence it has to work out, it does not.\nThat line is the whole difference between instinct and reasoning.", "width": 1150, "step": 4}
+      ]
+    },
+    {
+      "name": "The idea underneath",
+      "nodes": [
+        {"id": "a", "x": 80, "y": 170, "w": 480, "h": 140, "text": "code calculates", "tone": "muted", "step": 0},
+        {"id": "b", "x": 80, "y": 340, "w": 480, "h": 140, "text": "Jev judges", "tone": "accent", "step": 1},
+        {"id": "c", "x": 80, "y": 510, "w": 480, "h": 140, "text": "language models write and reason", "size": 22, "tone": "warn", "step": 2},
+        {"id": "d", "x": 660, "y": 300, "w": 520, "h": 200, "text": "pick the cheapest one that can do the job", "size": 23, "tone": "good", "step": 3}
+      ],
+      "arrows": [
+        {"from": "a", "to": "d", "step": 3},
+        {"from": "b", "to": "d", "step": 3},
+        {"from": "c", "to": "d", "step": 3}
+      ],
+      "notes": [
+        {"x": 80, "y": 90, "text": "Every video so far, one idea:", "width": 600, "color": "#1e1e1e", "step": 0}
+      ]
+    }
+  ]
+}

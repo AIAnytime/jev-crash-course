@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>What Jev is</title>
+<link rel="stylesheet" href="base.css">
+</head>
+<body>
+<header class="top">
+  <div style="display:flex;align-items:baseline;gap:20px;flex-wrap:wrap">
+    <h1>A model that only makes decisions</h1>
+    <span class="nav"><a href="whiteboard.html">whiteboard</a></span>
+  </div>
+  <p>
+    Write a customer message below. Jev answers three fixed questions about it and
+    returns a number for each. It never writes a sentence back. Ask the same thing
+    of a normal language model and watch what changes: the clock, and the shape of
+    the answer.
+  </p>
+</header>
+
+<main>
+  <section class="panel">
+    <label for="text">Customer message</label>
+    <textarea id="text" spellcheck="false"></textarea>
+    <div class="controls">
+      <button id="run-jev">Ask Jev</button>
+      <button id="run-llm" class="ghost">Ask the language model</button>
+      <span class="spacer"></span>
+      <span class="hint">or try an example:</span>
+      <select id="examples" style="width:auto;max-width:320px"></select>
+    </div>
+    <div id="error" class="err"></div>
+  </section>
+
+  <section class="row" style="align-items:flex-start">
+    <div>
+      <h2>Jev</h2>
+      <div class="panel">
+        <div class="stats">
+          <div class="stat"><div class="k">time</div><div class="v" id="jev-time">&mdash;</div></div>
+          <div class="stat"><div class="k">cost</div><div class="v" id="jev-cost">&mdash;</div></div>
+        </div>
+        <div class="answers" id="jev-answers" style="margin-top:18px"></div>
+      </div>
+    </div>
+    <div>
+      <h2>Language model</h2>
+      <div class="panel">
+        <div class="stats">
+          <div class="stat"><div class="k">time</div><div class="v" id="llm-time">&mdash;</div></div>
+          <div class="stat"><div class="k">cost</div><div class="v" id="llm-cost">&mdash;</div></div>
+        </div>
+        <div class="answers" id="llm-answers" style="margin-top:18px"></div>
+        <pre id="llm-raw" class="hint" style="margin-top:16px;white-space:pre-wrap"></pre>
+      </div>
+    </div>
+  </section>
+
+  <section class="panel">
+    <h3>What you are looking at</h3>
+    <p class="hint" style="margin:0">
+      The bars under each answer are real probabilities that came back from the model,
+      not a number it wrote out in words. The language model was asked for the same
+      three answers in strict JSON, and had to type its confidence as text.
+    </p>
+  </section>
+</main>
+
+<script src="app.js"></script>
+</body>
+</html>

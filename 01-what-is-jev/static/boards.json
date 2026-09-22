@@ -1,0 +1,52 @@
+{
+  "title": "01 · A model that only makes decisions",
+  "boards": [
+    {
+      "name": "Two ways to answer",
+      "nodes": [
+        {"id": "msg", "x": 50, "y": 300, "w": 250, "h": 130, "text": "A customer message", "step": 0},
+        {"id": "llm", "x": 420, "y": 130, "w": 330, "h": 170, "head": "language model", "text": "writes sentences", "sub": "seconds", "tone": "muted", "step": 1},
+        {"id": "jev", "x": 420, "y": 440, "w": 330, "h": 170, "head": "Jev", "text": "returns numbers", "sub": "milliseconds", "tone": "accent", "step": 1},
+        {"id": "out1", "x": 860, "y": 130, "w": 350, "h": 170, "text": "\"The customer sounds upset and is asking about a refund...\"", "size": 21, "tone": "muted", "step": 2},
+        {"id": "out2", "x": 860, "y": 440, "w": 350, "h": 170, "text": "upset  0.97\nneeds reply  0.99\nurgency  2.6", "size": 23, "tone": "accent", "step": 2}
+      ],
+      "arrows": [
+        {"from": "msg", "to": "llm", "step": 1},
+        {"from": "msg", "to": "jev", "step": 1},
+        {"from": "llm", "to": "out1", "step": 2},
+        {"from": "jev", "to": "out2", "step": 2}
+      ],
+      "notes": [
+        {"x": 50, "y": 665, "text": "Same question. One answer you read, one answer your code can act on.", "width": 900, "step": 3}
+      ]
+    },
+    {
+      "name": "Three shapes of answer",
+      "nodes": [
+        {"id": "a", "x": 60, "y": 200, "w": 350, "h": 230, "head": "yes or no", "text": "Does this need a reply?", "sub": "0.99", "tone": "accent", "step": 0},
+        {"id": "b", "x": 465, "y": 200, "w": 350, "h": 230, "head": "pick one", "text": "happy · neutral · upset", "sub": "upset, 0.97", "tone": "accent", "step": 1},
+        {"id": "c", "x": 870, "y": 200, "w": 350, "h": 230, "head": "score", "text": "How soon does it need attention?", "sub": "2.6 out of 4", "tone": "accent", "step": 2}
+      ],
+      "arrows": [],
+      "notes": [
+        {"x": 60, "y": 120, "text": "You do not prompt Jev. You give it a question with a fixed set of answers.", "width": 1000, "color": "#1e1e1e", "step": 0},
+        {"x": 60, "y": 520, "text": "That is the whole menu. If your question does not fit one of these three shapes,\nthis is not the tool for it.", "width": 1000, "step": 3}
+      ]
+    },
+    {
+      "name": "Where it sits in your code",
+      "nodes": [
+        {"id": "code", "x": 80, "y": 190, "w": 580, "h": 300, "head": "your code", "text": "a = jev.ask(message)\n\nif a.needs_reply > 0.9:\n   page_the_on_call()\nelse:\n   queue(a.urgency)", "size": 22, "step": 0},
+        {"id": "p1", "x": 740, "y": 190, "w": 420, "h": 130, "text": "Nothing to parse.\nNothing to retry.", "tone": "good", "step": 1},
+        {"id": "p2", "x": 740, "y": 360, "w": 420, "h": 130, "text": "The answer arrives as a number.", "tone": "good", "step": 2}
+      ],
+      "arrows": [
+        {"from": "code", "to": "p1", "step": 1},
+        {"from": "code", "to": "p2", "step": 2}
+      ],
+      "notes": [
+        {"x": 80, "y": 570, "text": "Think of it as a judgement call inside an if-statement, not a chat window.", "width": 1000, "step": 3}
+      ]
+    }
+  ]
+}

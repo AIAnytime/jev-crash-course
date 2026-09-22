@@ -1,0 +1,51 @@
+{
+  "title": "07 · A first pass over a contract",
+  "boards": [
+    {
+      "name": "Two passes at once",
+      "nodes": [
+        {"id": "doc", "x": 60, "y": 290, "w": 250, "h": 150, "text": "the agreement", "step": 0},
+        {"id": "split", "x": 390, "y": 130, "w": 380, "h": 160, "head": "pass one", "text": "every clause, five questions each", "size": 22, "tone": "accent", "step": 1},
+        {"id": "whole", "x": 390, "y": 450, "w": 380, "h": 160, "head": "pass two", "text": "the whole document, one checklist", "size": 22, "tone": "accent", "step": 2},
+        {"id": "order", "x": 850, "y": 130, "w": 340, "h": 160, "text": "read these clauses first", "size": 22, "tone": "warn", "step": 3},
+        {"id": "gaps", "x": 850, "y": 450, "w": 340, "h": 160, "text": "and these protections are missing", "size": 22, "tone": "bad", "step": 4}
+      ],
+      "arrows": [
+        {"from": "doc", "to": "split", "step": 1},
+        {"from": "doc", "to": "whole", "step": 2},
+        {"from": "split", "to": "order", "step": 3},
+        {"from": "whole", "to": "gaps", "step": 4}
+      ],
+      "notes": [
+        {"x": 60, "y": 660, "text": "Eleven calls, all at the same time, about a second and a half.", "width": 1100, "step": 5}
+      ]
+    },
+    {
+      "name": "What is missing is the hard part",
+      "nodes": [
+        {"id": "read", "x": 80, "y": 150, "w": 500, "h": 160, "text": "a person reads what is written", "size": 23, "step": 0},
+        {"id": "miss", "x": 680, "y": 150, "w": 500, "h": 160, "text": "and can miss what is absent", "size": 23, "tone": "warn", "step": 1},
+        {"id": "list", "x": 80, "y": 380, "w": 1100, "h": 180, "head": "so ask about each one by name", "text": "is there a cap?  is it the same both ways?  can we get out?\ncan the price rise without limit?  who owns the data?", "size": 21, "tone": "accent", "step": 2}
+      ],
+      "arrows": [
+        {"from": "read", "to": "miss", "step": 1}
+      ],
+      "notes": [
+        {"x": 80, "y": 620, "text": "Ten yes-or-no questions over the whole document. The useful answer is always the no.", "width": 1100, "step": 3}
+      ]
+    },
+    {
+      "name": "Where the human stays",
+      "nodes": [
+        {"id": "tool", "x": 70, "y": 250, "w": 420, "h": 200, "head": "the tool", "text": "sorts, flags, counts,\nand hands you a reading order", "size": 21, "tone": "accent", "step": 0},
+        {"id": "person", "x": 700, "y": 250, "w": 420, "h": 200, "head": "the person", "text": "reads, judges, negotiates,\nand signs", "size": 21, "tone": "good", "step": 1}
+      ],
+      "arrows": [
+        {"from": "tool", "to": "person", "text": "start here", "step": 1, "dy": -26}
+      ],
+      "notes": [
+        {"x": 70, "y": 550, "text": "It is triage, not advice. The win is that nobody reads clause 10 last any more.", "width": 1100, "step": 2}
+      ]
+    }
+  ]
+}

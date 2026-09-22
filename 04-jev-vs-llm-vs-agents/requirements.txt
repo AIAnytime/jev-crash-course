@@ -1,0 +1,6 @@
+streamlit>=1.40
+typesafe-sdk>=0.7
+openai>=1.60
+pandas>=2.0
+altair>=5.0
+httpx>=0.27

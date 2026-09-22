@@ -1,0 +1,49 @@
+{
+  "title": "08 · Browser tests that read the page",
+  "boards": [
+    {
+      "name": "Who does what",
+      "nodes": [
+        {"id": "pw", "x": 60, "y": 270, "w": 320, "h": 170, "head": "Playwright", "text": "opens, clicks, types", "size": 22, "tone": "muted", "step": 0},
+        {"id": "page", "x": 460, "y": 270, "w": 300, "h": 170, "text": "the page as a person sees it", "size": 21, "step": 1},
+        {"id": "jev", "x": 840, "y": 270, "w": 340, "h": 170, "head": "Jev", "text": "is this what we expected?", "size": 21, "tone": "accent", "step": 2}
+      ],
+      "arrows": [
+        {"from": "pw", "to": "page", "step": 1},
+        {"from": "page", "to": "jev", "step": 2}
+      ],
+      "notes": [
+        {"x": 60, "y": 520, "text": "The browser does the doing. The model only judges. It never gets to click anything,\nwhich is exactly why the test stays repeatable.", "width": 1100, "step": 3}
+      ]
+    },
+    {
+      "name": "The assertion is the sentence",
+      "nodes": [
+        {"id": "old", "x": 70, "y": 130, "w": 500, "h": 210, "head": "the usual assertion", "text": "expect(page.locator('#count'))\n  .toHaveText('1')", "size": 20, "tone": "muted", "step": 0},
+        {"id": "new", "x": 680, "y": 130, "w": 500, "h": 210, "head": "this one", "text": "\"the basket total at the top\n of the page reads one item\"", "size": 20, "tone": "accent", "step": 1},
+        {"id": "brittle", "x": 70, "y": 400, "w": 500, "h": 150, "text": "breaks when the markup moves", "size": 21, "tone": "bad", "step": 2},
+        {"id": "robust", "x": 680, "y": 400, "w": 500, "h": 150, "text": "survives a redesign", "size": 21, "tone": "good", "step": 3}
+      ],
+      "arrows": [
+        {"from": "old", "to": "brittle", "step": 2},
+        {"from": "new", "to": "robust", "step": 3}
+      ],
+      "notes": [
+        {"x": 70, "y": 610, "text": "And it catches what a selector never could: whether the message makes sense to a human.", "width": 1100, "step": 4}
+      ]
+    },
+    {
+      "name": "Three outcomes, not two",
+      "nodes": [
+        {"id": "p", "x": 90, "y": 220, "w": 320, "h": 180, "head": "0.94", "text": "pass", "tone": "good", "step": 0},
+        {"id": "u", "x": 480, "y": 220, "w": 320, "h": 180, "head": "0.62", "text": "not sure", "tone": "warn", "step": 1},
+        {"id": "f", "x": 870, "y": 220, "w": 320, "h": 180, "head": "0.02", "text": "fail", "tone": "bad", "step": 2}
+      ],
+      "arrows": [],
+      "notes": [
+        {"x": 90, "y": 470, "text": "A test that can say \"I am not sure\" is more honest than one that flips a coin and calls it green.", "width": 1100, "step": 3},
+        {"x": 90, "y": 580, "text": "Route the unsure ones to a person. Fail the clear ones. Do not average them away.", "width": 1100, "step": 4}
+      ]
+    }
+  ]
+}

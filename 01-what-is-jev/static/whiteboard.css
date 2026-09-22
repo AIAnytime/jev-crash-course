@@ -1,0 +1,56 @@
+/* Whiteboard deck: a few hand-drawn boards, stepped through with the arrow keys. */
+
+:root {
+  --board-bg: #fbf8f1;
+  --board-ink: #1e1e1e;
+  --board-muted: #6c6a66;
+  --hand: "Kalam", "Caveat", "Comic Sans MS", cursive;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--board-bg);
+  color: var(--board-ink);
+  font-family: var(--hand);
+  overflow: hidden;
+}
+
+#stage {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+svg { width: 100%; height: 100%; }
+
+.chrome {
+  position: fixed;
+  left: 0; right: 0;
+  display: flex;
+  gap: 18px;
+  align-items: center;
+  padding: 14px 22px;
+  font-size: 16px;
+  color: var(--board-muted);
+  pointer-events: none;
+}
+
+.chrome.bottom { bottom: 0; }
+.chrome .spacer { flex: 1; }
+.chrome b { color: var(--board-ink); font-weight: 400; }
+
+.dots { display: flex; gap: 8px; }
+.dots i {
+  width: 9px; height: 9px; border-radius: 50%;
+  background: #d8d2c6; display: block;
+}
+.dots i.on { background: #1e1e1e; }
+
+.reveal { opacity: 0; transition: opacity .28s ease; }
+.reveal.shown { opacity: 1; }
+
+@media print { .chrome { display: none; } }

@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Jev in SQL</title>
+<link rel="stylesheet" href="base.css">
+<style>
+  #sql { min-height: 190px; font-family: var(--mono); font-size: 15px; line-height: 1.5; }
+  .fn { display: grid; grid-template-columns: 280px 90px 1fr; gap: 10px; font-size: 14px; padding: 7px 0; border-bottom: 1px solid var(--line); }
+  .fn code { color: var(--accent); }
+  .fn:last-child { border-bottom: 0; }
+  td.wrap { max-width: 520px; white-space: normal; }
+</style>
+</head>
+<body>
+<header class="top">
+  <div style="display:flex;align-items:baseline;gap:20px;flex-wrap:wrap">
+    <h1>A judgement call you can put in a WHERE clause</h1>
+    <span class="nav"><a href="whiteboard.html">whiteboard</a></span>
+  </div>
+  <p>
+    A thousand app-store reviews sit in a local database. The <code>jev_</code>
+    functions below are real SQL functions: the query engine hands each one a whole
+    column at a time, and the model answers the whole column at once. So you can
+    ask a question about a thousand pieces of writing in one query.
+  </p>
+</header>
+
+<main>
+  <section class="panel">
+    <div class="row" style="margin-bottom:12px">
+      <div style="flex:0 0 320px">
+        <label for="presets">Example queries</label>
+        <select id="presets"></select>
+      </div>
+      <div style="flex:0 0 170px">
+        <label for="limit">Rows to scan</label>
+        <input type="number" id="limit" value="200" min="10" max="1000" step="10">
+      </div>
+      <div style="flex:1"></div>
+    </div>
+    <label for="sql">SQL</label>
+    <textarea id="sql" spellcheck="false"></textarea>
+    <div class="controls">
+      <button id="run">Run query</button>
+      <button id="clear" class="ghost">Empty the cache</button>
+      <span class="spacer"></span>
+      <span class="hint" id="status"></span>
+    </div>
+    <div id="error" class="err"></div>
+  </section>
+
+  <section>
+    <div class="panel">
+      <div class="stats">
+        <div class="stat"><div class="k">query time</div><div class="v" id="time">&mdash;</div></div>
+        <div class="stat"><div class="k">rows scanned</div><div class="v" id="scanned">&mdash;</div></div>
+        <div class="stat"><div class="k">model calls</div><div class="v" id="calls">&mdash;</div></div>
+        <div class="stat"><div class="k">answered from cache</div><div class="v" id="cached">&mdash;</div></div>
+        <div class="stat"><div class="k">cost</div><div class="v" id="cost">&mdash;</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Result</h2>
+    <div class="scroll">
+      <table>
+        <thead id="head"></thead>
+        <tbody id="body"><tr><td class="hint">Run a query.</td></tr></tbody>
+      </table>
+    </div>
+    <p class="hint" id="rowcount"></p>
+  </section>
+
+  <section>
+    <h2>The functions</h2>
+    <div class="panel" id="functions"></div>
+  </section>
+</main>
+
+<script src="app.js"></script>
+</body>
+</html>
