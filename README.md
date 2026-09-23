@@ -6,6 +6,8 @@ one command, a whiteboard that explains the idea, and a README.
 
 Every demo makes live API calls. Nothing here is simulated, mocked, or recorded.
 
+[![Watch the Playlist on YouTube](https://img.youtube.com/vi/VIDEO_ID/maxresdefault.jpg)](https://www.youtube.com/playlist?list=PLUSsSoiGR7aM)
+
 ## What Jev is, in one paragraph
 
 Most models you have used generate text one token at a time, which is where the
