@@ -6,11 +6,7 @@ one command, a whiteboard that explains the idea, and a README.
 
 Every demo makes live API calls. Nothing here is simulated, mocked, or recorded.
 
-<p align="center">
-  <a href="https://www.youtube.com/playlist?list=PLUSsSoiGR7aM">
-    <img src="https://img.youtube.com/vi/rwNrCHS3BM8/maxresdefault.jpg" alt="Watch the playlist on YouTube" width="700">
-  </a>
-</p>
+[![Watch the Playlist on YouTube](https://img.youtube.com/vi/rwNrCHS3BM8/maxresdefault.jpg)](https://www.youtube.com/playlist?list=PLUSsSoiGR7aM)
 
 ## What Jev is, in one paragraph
 
