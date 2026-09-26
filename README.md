@@ -105,7 +105,7 @@ match yours, and some of them move between runs.
 Where a result is within noise, the README says so rather than rounding it into a
 headline. Project 11 is the clearest example: an open model running locally
 scored 0.800 against Jev's 0.805 over 200 reviews, which is a tie given the
-sample size, not a win for either side. Re-run anything before you quote it.
+sample size, not a win for either side. 
 
 ## Credits
 
