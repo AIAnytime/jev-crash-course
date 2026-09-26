@@ -115,4 +115,4 @@ reviews used as test data in projects 04, 06 and 11 are public app-store reviews
 
 ## License
 
-MIT, see [LICENSE](LICENSE).
+Proprietary — all rights reserved. This code is published for viewing and evaluation only; no use, copying, modification, redistribution, commercial use, or use as AI/ML training data without written permission. See [LICENSE](LICENSE). Commercial licensing: aianytime07@gmail.com · sonu@aianytime.net.
