@@ -1,0 +1,7 @@
+# Project 12 only. Keep this in its own virtual environment: crewai pins older
+# openai and pydantic than the other projects need.
+crewai>=1.15
+tavily-python>=0.5
+typesafe-sdk>=0.7
+fastapi>=0.115
+uvicorn[standard]>=0.30

@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Agent crew with a decision gate</title>
+<link rel="stylesheet" href="base.css">
+<style>
+  .flow { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 20px; }
+  .step { flex: 1 1 130px; border: 1px solid var(--line); border-radius: 9px; background: #fff;
+          padding: 12px 14px; font-size: 14px; opacity: .45; transition: opacity .2s; }
+  .step.on { opacity: 1; border-color: var(--accent); }
+  .step.done { opacity: 1; }
+  .step .who { font-size: 11px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); }
+  .step.jev { border-left: 4px solid var(--accent); }
+  .step.crew { border-left: 4px solid #7048e8; }
+  .step b { display: block; font-size: 15px; margin-top: 2px; }
+  .round { border: 1px solid var(--line); border-radius: 10px; background: #fff; margin-bottom: 14px; }
+  .round > h3 { margin: 0; padding: 13px 16px; border-bottom: 1px solid var(--line);
+                font-size: 15px; display: flex; justify-content: space-between; align-items: center; }
+  .round .body { padding: 16px; }
+  .verdict { font-size: 12px; text-transform: uppercase; letter-spacing: .06em; padding: 4px 10px; border-radius: 20px; }
+  .verdict.publish { background: #e7f6ea; color: var(--good); }
+  .verdict.rewrite { background: #fdf1e7; color: var(--warn); }
+  .verdict.stop { background: #fbeaea; color: var(--bad); }
+  .draft { font-size: 14px; line-height: 1.6; white-space: pre-wrap; max-height: 260px;
+           overflow: auto; background: #faf8f3; border-radius: 8px; padding: 14px; }
+  .problem { font-size: 14px; padding: 8px 0; border-bottom: 1px solid var(--line); color: var(--warn); }
+  .problem:last-child { border-bottom: 0; }
+  .src { font-size: 13px; padding: 6px 0; border-bottom: 1px solid var(--line); }
+  .src:last-child { border-bottom: 0; }
+  .src a { color: var(--accent); text-decoration: none; }
+  .split { display: flex; height: 26px; border-radius: 6px; overflow: hidden; margin: 10px 0 6px; }
+  .split .jev { background: var(--accent); }
+  .split .llm { background: #7048e8; }
+  .split span { display: block; height: 100%; }
+  .legend { display: flex; gap: 18px; font-size: 13px; color: var(--muted); }
+  .legend i { display: inline-block; width: 10px; height: 10px; border-radius: 2px; margin-right: 6px; }
+</style>
+</head>
+<body>
+<header class="top">
+  <div style="display:flex;align-items:baseline;gap:20px;flex-wrap:wrap">
+    <h1>A crew of agents, with a decision model holding both ends</h1>
+    <span class="nav"><a href="whiteboard.html">whiteboard</a></span>
+  </div>
+  <p>
+    Three CrewAI agents research, write and edit. Before any of them runs, Jev
+    reads the brief and decides whether it is worth spending an LLM on at all.
+    After every draft, Jev scores it and decides: publish, send it back, or stop.
+    That verdict is the loop condition. The agents never see Jev; they get an
+    instruction built from its numbers.
+  </p>
+  <p class="keys" id="keys" style="font-size:13px;color:var(--muted)"></p>
+</header>
+
+<main>
+  <section class="panel">
+    <label for="brief">The brief</label>
+    <textarea id="brief" style="min-height:90px" spellcheck="false"></textarea>
+    <div class="row" style="margin-top:12px">
+      <div style="flex:0 0 250px">
+        <label for="model">Writer model</label>
+        <select id="model"></select>
+      </div>
+      <div style="flex:0 0 150px">
+        <label for="rounds">Max rounds</label>
+        <input type="number" id="rounds" value="3" min="1" max="5">
+      </div>
+      <div style="flex:1"></div>
+    </div>
+    <div class="controls">
+      <button id="run">Run the pipeline</button>
+      <span class="spacer"></span>
+      <span class="hint">try:</span>
+      <select id="examples" style="width:auto;max-width:330px"></select>
+    </div>
+    <div id="error" class="err"></div>
+  </section>
+
+  <section>
+    <div class="flow" id="flow">
+      <div class="step jev" data-step="gate"><span class="who">Jev</span><b>read the brief</b></div>
+      <div class="step crew" data-step="research"><span class="who">agent</span><b>research</b></div>
+      <div class="step crew" data-step="writing"><span class="who">agent</span><b>write</b></div>
+      <div class="step jev" data-step="judged"><span class="who">Jev</span><b>score the draft</b></div>
+      <div class="step crew" data-step="rewriting"><span class="who">agent</span><b>rewrite</b></div>
+      <div class="step jev" data-step="done"><span class="who">code</span><b>verdict</b></div>
+    </div>
+  </section>
+
+  <section class="row" style="align-items:flex-start">
+    <div style="flex:1 1 380px">
+      <h2>What Jev decided about the brief</h2>
+      <div class="panel" id="gate"><p class="hint" style="margin:0">Not run yet.</p></div>
+    </div>
+    <div style="flex:1 1 300px">
+      <h2>Who spent what</h2>
+      <div class="panel" id="spend"><p class="hint" style="margin:0">Not run yet.</p></div>
+    </div>
+  </section>
+
+  <section id="sources-wrap" hidden>
+    <h2>What the researcher found</h2>
+    <div class="panel" id="sources"></div>
+  </section>
+
+  <section>
+    <h2>The loop</h2>
+    <div id="rounds-out"><p class="hint">Run the pipeline to watch it turn.</p></div>
+  </section>
+
+  <section id="final-wrap" hidden>
+    <h2>Final piece</h2>
+    <div class="panel"><div class="draft" id="final" style="max-height:none"></div></div>
+  </section>
+</main>
+
+<script src="app.js"></script>
+</body>
+</html>
